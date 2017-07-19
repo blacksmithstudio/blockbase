@@ -1,5 +1,5 @@
 {
-  "name": "blockbase",
+  "name": "@blacksmithstudio/blockbase",
   "version": "0.0.1",
   "private": true,
   "description": "blockbase MVC node framework project",
