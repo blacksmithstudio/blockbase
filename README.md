@@ -7,7 +7,7 @@ Lightweight MVC Framework for node apps
 License
 ----
 
-(Copyright) 2017 - Alexandre Pereira for Shuffle Inc.
+(Copyright) 2017 - Alexandre Pereira for Blacksmith S.A.S.
 
 
 **Free Software, Hell Yeah!**
