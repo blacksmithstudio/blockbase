@@ -1,0 +1,18 @@
+# ##
+# Blockbase .gitignore
+# ##
+
+# Junk files
+.DS_Store
+.scss
+.idea
+.sass-cache/
+*.css.map
+
+# NPM related
+node_modules/
+npm-debug.log
+
+# Other (blockbase linked)
+tmp/
+uploads/
