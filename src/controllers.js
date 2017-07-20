@@ -1,7 +1,24 @@
 const fs = require('fs')
 const junk = require('junk')
 
+/**
+ * Blockbase Controllers builder
+ * @namespace app.controllers.*
+ * @author Alexandre Pereira <alex@blacksmith.studio>
+ * @param {Object} app - app namespace to update
+ * @param {string} path - optional path to target the source path
+ *
+ * @returns {Object} updated controllers namespace
+ */
 module.exports = (app, path = `${app.root}/controllers/`) => {
+    /**
+     * index the controllers
+     * @private
+     * @param {string} file - file to index
+     * @param {number} index - position of the file in its parent folder
+     *
+     * @returns {Object} update controllers namespace
+     */
     function index(file, index) {
         if(!file.includes('.js') && !!fs.readdirSync(path + file).length){
             let files = fs.readdirSync(path + file)
@@ -29,6 +46,14 @@ module.exports = (app, path = `${app.root}/controllers/`) => {
     }
 
     return {
+        /**
+         * main builder
+         * @public
+         * @async
+         * @memberof app.controllers
+         *
+         * @returns {Object} update controllers namespace
+         */
         async build() {
             if(fs.existsSync(path)){
                 let files = fs.readdirSync(path).filter(junk.not)

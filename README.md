@@ -2,7 +2,7 @@
 Lightweight MVC Framework for Node.
 
 ### Version
-0.2 alpha
+0.0.3 alpha
 
 ### Install
 You need first to have Node.JS on your machine. If not [please folllow the install instructions here](https://nodejs.org)
@@ -162,6 +162,13 @@ Thanks to that you'll get access to multiple new features.
 ```
 
 @TODO - finish the model documentation
+
+#### Run tests
+Blockbase has some unit tests (with [Mocha](https://mochajs.org)) written run them often !
+
+```sh
+$ npm test
+```
 
 License
 ----

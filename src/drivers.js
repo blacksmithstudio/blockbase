@@ -3,8 +3,24 @@ const fs = require('fs')
 const junk = require('junk')
 const path = require('path')
 
+/**
+ * Blockbase Drivers builder
+ * @namespace app.drivers.*
+ * @author Alexandre Pereira <alex@blacksmith.studio>
+ * @param {Object} app - app namespace to update
+ *
+ * @returns {Object} updated drivers namespace
+ */
 module.exports = (app) => {
     return {
+        /**
+         * main builder
+         * @public
+         * @async
+         * @memberof app.drivers
+         *
+         * @returns {Object} update drivers namespace
+         */
         async build(path = `${app.root}/drivers`) {
             if(fs.existsSync(`${app.root}/../node_modules/@blacksmithstudio`)){
                 let modules = fs.readdirSync(`${app.root}/../node_modules/@blacksmithstudio`)

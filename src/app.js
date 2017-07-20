@@ -1,5 +1,12 @@
 const config = require('config')
 
+/**
+ * Blockbase Main Instance (app.*)
+ * @namespace app.*
+ * @author Alexandre Pereira <alex@blacksmith.studio>
+ * @param {Object} options - setup options { root : __dirname }
+ * @param {function} callback - main callback transporting the app variable
+ */
 module.exports = async (options, callback) => {
     let app = {
         root : options.root || __dirname,

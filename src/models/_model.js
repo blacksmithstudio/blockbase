@@ -2,8 +2,22 @@ const _ = require('underscore')
 const Joi = require('joi')
 const moment = require('moment')
 
+/**
+ * Blockbase Main Model (class)
+ * @memberof app.models
+ * @namespace app.models._models
+ * @author Alexandre Pereira <alex@blacksmith.studio>
+ * @param {Object} app - app namespace
+ *
+ * @returns {function} class object
+ */
 module.exports = (app) => {
     return class Model {
+        /**
+         * main constructor
+         * @constructor
+         * @param {Object} options - parameters to push in the models
+         */
         constructor(options){
             const { type, authenticated, index } = options
 
@@ -19,7 +33,12 @@ module.exports = (app) => {
             this.data = {}
         }
 
-        body(){
+        /**
+         * body getter - omit methods and private variables
+         * @param {Object} data - optional data to push in the body of model
+         * @returns {Object} body data
+         */
+        body(data){
             if(!data){
                 return _.omit(this.data, (value, key, object) => {
                     return _.isFunction(value) || key.charAt(0) === '_'
@@ -29,10 +48,18 @@ module.exports = (app) => {
             }
         }
 
+        /**
+         * is the model data valid
+         * @returns {boolean} body is valid
+         */
         valid(){
             return this.validate().error === null ? true : false
         }
 
+        /**
+         * validate the data
+         * @returns {Object} validation details (from Joi)
+         */
         validate(){
             const validation = Joi.validate(this.body(), this.schema)
 
@@ -42,18 +69,36 @@ module.exports = (app) => {
             return validation
         }
 
+        /**
+         * read info from DB
+         * @param {Object} opt - options to pass
+         * @param {function} cb - callback returning the item created
+         */
         read(opt, cb) {
             this.client.read(this, opt, cb)
         }
 
+        /**
+         * update info in DB
+         * @param {Object} data - update to pass
+         * @param {function} cb - callback returning the item updated
+         */
         update(data, cb) {
             this.client.update(this, data, cb)
         }
 
+        /**
+         * save info in DB (update or create)
+         * @param {function} cb - callback returning the item saved
+         */
         save(cb) {
             this.client.save(this, cb)
         }
 
+        /**
+         * delete from DB
+         * @param {function} cb - callback returning bool if deleted
+         */
         delete(cb) {
             this.client.delete(this, cb)
         }
