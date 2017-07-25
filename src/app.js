@@ -13,6 +13,17 @@ module.exports = async (options, callback) => {
         config
     }
 
+    console.log(
+        '___.   .__                 __   ___.                         \n'+
+        '\\_ |__ |  |   ____   ____ |  | _\\_ |__ _____    ______ ____  \n'+
+        ' | __ \\|  |  /  _ \\_/ ___\\|  |/ /| __ \\\\__  \\  /  ___// __ \\ \n'+
+        ' | \\_\\ \\  |_(  <_> )  \\___|    < | \\_\\ \\/ __ \\_\\___ \\\\  ___/ \n'+
+        ' |___  /____/\\____/ \\___  >__|_ \\|___  (____  /____  >\\___  >\n'+
+        '     \\/                 \\/     \\/    \\/     \\/     \\/     \\/ \n'+
+        ' Super light Framework by Bl4ck$m1th\n'
+    )
+    console.log('[Info] - Begin initialization...\n')
+
     app.drivers = require('./drivers')(app)
     app.models = require('./models')(app)
     app.controllers = require('./controllers')(app)
@@ -24,5 +35,6 @@ module.exports = async (options, callback) => {
     await app.models.build()
     await app.controllers.build()
 
+    app.drivers.logger.success('App', `${app.config.name} is alive !`)
     callback(app)
 }
