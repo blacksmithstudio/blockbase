@@ -19,14 +19,14 @@ module.exports = (app) => {
          * @param {Object} options - parameters to push in the models
          */
         constructor(options){
-            const { type, authenticated, index } = options
+            const { type, authenticated, index, dbms } = options
 
             this.authenticated = authenticated || false
 
             if(!app.config.dbms || !app.drivers[app.config.dbms])
                 app.drivers.logger.warn('Models', `Missing or problem with DBMS with model '${type}'`)
 
-            this.client = app.drivers[app.config.dbms]
+            this.client = app.drivers[dbms || app.config.dbms]
             this.params = { type, index }
 
             this.schema = require(`${app.root}/models/schemas/${type}`)
@@ -83,8 +83,8 @@ module.exports = (app) => {
          * @param {Object} data - update to pass
          * @param {function} cb - callback returning the item updated
          */
-        update(data, cb) {
-            this.client.update(this, data, cb)
+        update(cb) {
+            this.client.update(this, cb)
         }
 
         /**
