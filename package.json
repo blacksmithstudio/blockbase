@@ -1,6 +1,6 @@
 {
   "name": "@blacksmithstudio/blockbase",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {

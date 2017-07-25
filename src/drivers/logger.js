@@ -25,7 +25,7 @@ module.exports = (app) => {
          */
         warn(type = 'unknown', message){
             if(app.config.log)
-                console.error(`\x1b[33m[Warn] - [${type}] - ${message}\x1b[0m`)
+                console.warn(`\x1b[33m[Warn] - [${type}] - ${message}\x1b[0m`)
         },
 
         /**
@@ -35,7 +35,7 @@ module.exports = (app) => {
          */
         success(type = 'unknown', message){
             if(app.config.log)
-                console.error(`\x1b[32m[Success] - [${type}] - ${message}\x1b[0m`)
+                console.log(`\x1b[32m[Success] - [${type}] - ${message}\x1b[0m`)
         },
 
         /**
@@ -45,7 +45,7 @@ module.exports = (app) => {
          */
         log(type = 'unknown', message){
             if(app.config.log)
-                console.error(`\x1b[0m[Log] - [${type}] - ${message}\x1b[0m`)
+                console.log(`\x1b[0m[Log] - [${type}] - ${message}\x1b[0m`)
         }
     }
 }
