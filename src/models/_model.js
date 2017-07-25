@@ -1,6 +1,5 @@
 const _ = require('underscore')
 const Joi = require('joi')
-const moment = require('moment')
 
 /**
  * Blockbase Main Model (class)

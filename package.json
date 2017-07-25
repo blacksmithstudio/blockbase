@@ -1,6 +1,6 @@
 {
   "name": "@blacksmithstudio/blockbase",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
@@ -17,16 +17,10 @@
   "author": "Alexandre Pereira <alex@blacksmith.studio>",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.17.2",
     "config": "^1.26.1",
-    "express": "^4.15.3",
     "joi": "^10.6.0",
     "js-yaml": "^3.8.4",
     "junk": "^2.1.0",
-    "moment": "^2.18.1",
-    "multer": "^1.3.0",
-    "pg": "^7.0.1",
-    "request": "^2.81.0",
     "underscore": "^1.8.3"
   }
 }
