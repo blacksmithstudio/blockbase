@@ -73,8 +73,8 @@ module.exports = (app) => {
          * @param {Object} opt - options to pass
          * @param {function} cb - callback returning the item created
          */
-        read(opt, cb) {
-            this.client.read(this, opt, cb)
+        read(cb) {
+            this.client.read(this, cb)
         }
 
         /**
