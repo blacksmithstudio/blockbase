@@ -37,6 +37,7 @@ module.exports = (app, path = `${app.root}/controllers/`) => {
                 }
             })
         } else {
+            file = file.replace('.js', '')
             app.controllers[file] = require(path + file)(app)
             if(app.controllers[file].init){
                 app.drivers.logger.log('Controllers', `Initializing >> app.controllers.${file}.*`)
