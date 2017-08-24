@@ -1,13 +1,13 @@
 {
   "name": "@blacksmithstudio/blockbase",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
-    "dev": "export NODE_ENV=development && node --max_old_space_size=4096 --harmony-async-await start.js",
-    "start": "export NODE_ENV=development && pm2 start start.js --node-args='--harmony-async-await' --name=blockbase",
-    "serve:production": "export NODE_ENV=production && pm2 start start.js --node-args='--harmony-async-await' --name=blockbase",
-    "serve:sandbox": "export NODE_ENV=sandbox && pm2 start start.js --node-args='--harmony-async-await' --name=blockbase",
+    "dev": "export NODE_ENV=development && node --max_old_space_size=4096 start.js",
+    "start": "export NODE_ENV=development && pm2 start start.js --name=blockbase",
+    "serve:production": "export NODE_ENV=production && pm2 start start.js --name=blockbase",
+    "serve:sandbox": "export NODE_ENV=sandbox && pm2 start start.js --name=blockbase",
     "test": "mocha --harmony-async-await"
   },
   "repository": {
