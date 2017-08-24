@@ -40,11 +40,21 @@ module.exports = (app) => {
         body(data){
             if(!data){
                 return _.omit(this.data, (value, key, object) => {
-                    return _.isFunction(value) || key.charAt(0) === '_'
+                    return _.isFunction(value) || _.isNull(value) || key.charAt(0) === '_'
                 })
             } else {
                 return _.extendOwn(this.data, data)
             }
+        }
+
+        /**
+         * clean the null values from the current object
+         * @returns {Object} body data cleaned
+         */
+        clean(){
+            this.data = _.omit(this.data, (value, key, object) => {
+                return _.isNull(value) || value === ''
+            })
         }
 
         /**
