@@ -80,36 +80,40 @@ module.exports = (app) => {
 
         /**
          * read info from DB
-         * @param {Object} opt - options to pass
-         * @param {function} cb - callback returning the item created
          */
-        read(cb) {
-            this.client.read(this, cb)
+        async read() {
+            try{
+                return await this.client.read(this)
+            } catch(e) { throw e }
         }
 
         /**
          * update info in DB
-         * @param {Object} data - update to pass
-         * @param {function} cb - callback returning the item updated
          */
-        update(cb) {
-            this.client.update(this, cb)
+        async update() {
+            try{
+                return await this.client.update(this)
+            } catch(e) { throw e }
         }
 
         /**
          * save info in DB (update or create)
          * @param {function} cb - callback returning the item saved
          */
-        save(cb) {
-            this.client.save(this, cb)
+        async save() {
+            try{
+                return await this.client.save(this)
+            } catch(e) { throw e }
         }
 
         /**
          * delete from DB
          * @param {function} cb - callback returning bool if deleted
          */
-        delete(cb) {
-            this.client.delete(this, cb)
+        async delete() {
+            try{
+                return await this.client.delete(this)
+            } catch(e) { throw e }
         }
     }
 }
