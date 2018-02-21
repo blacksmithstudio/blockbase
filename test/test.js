@@ -2,12 +2,12 @@ const assert = require('assert')
 
 // @TODO refactor these unit tests in small units
 describe('Initialization of tests', () => {
-  it('app presence', () => {
-    assert.equal('function', typeof require('../src/app'))
-  })
+    it('app presence', () => {
+        assert.equal('function', typeof require('../src/app'))
+    })
 })
 
-require('../src/app')({ root : __dirname }, (app) => {
+require('../src/app')({root: __dirname}, (app) => {
     describe('App Architecture', () => {
         describe(`app.* tests`, () => {
             it('app.* exists', () => {
@@ -42,6 +42,15 @@ require('../src/app')({ root : __dirname }, (app) => {
             })
             it('app.drivers.logger.success exists', () => {
                 assert.equal('function', typeof app.drivers.logger.success)
+            })
+        })
+
+        describe('app.drivers.logger tests', () => {
+            it('should log tests', function () {
+                app.config.log = true
+                app.drivers.logger.log('param1 %s', 'param2', 'param3')
+                app.drivers.logger.warn('param1', 'param2')
+                app.drivers.logger.error('error', new Error('test error'))
             })
         })
     })

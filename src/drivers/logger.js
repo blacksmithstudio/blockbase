@@ -12,10 +12,10 @@ module.exports = (app) => {
         /**
          * error logger
          * @param {string} type - type of message
-         * @param {string} message - message to display
+         * @param {string} error - message to display
          */
-        error(type = 'unknown', message){
-            console.error(`\x1b[31m[Error] - [${type}] - ${message}\x1b[0m`)
+        error(type = 'unknown', error) {
+            console.error.apply(console, [`\x1b[31m[Error] - [${type}]`, error, `\x1b[0m`])
         },
 
         /**
@@ -23,8 +23,8 @@ module.exports = (app) => {
          * @param {string} type - type of message
          * @param {string} message - message to display
          */
-        warn(type = 'unknown', message){
-            if(app.config.log)
+        warn(type = 'unknown', message = '') {
+            if (app.config.log)
                 console.warn(`\x1b[33m[Warn] - [${type}] - ${message}\x1b[0m`)
         },
 
@@ -33,19 +33,20 @@ module.exports = (app) => {
          * @param {string} type - type of message
          * @param {string} message - message to display
          */
-        success(type = 'unknown', message){
-            if(app.config.log)
+        success(type = 'unknown', message = '') {
+            if (app.config.log)
                 console.log(`\x1b[32m[Success] - [${type}] - ${message}\x1b[0m`)
         },
 
         /**
-         * loig logger
+         * log logger
          * @param {string} type - type of message
-         * @param {string} message - message to display
+         * @param args
          */
-        log(type = 'unknown', message){
-            if(app.config.log)
-                console.log(`\x1b[0m[Log] - [${type}] - ${message}\x1b[0m`)
+        log(type = 'unknown', ...args) {
+
+            if (app.config.log)
+                console.log.apply(console, [`\x1b[0m[Log] - [${type}]`].concat(args).concat([`\x1b[0m`]))
         }
     }
 }
