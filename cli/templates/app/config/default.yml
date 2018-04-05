@@ -1,0 +1,17 @@
+log : true
+name  : blockbase-local
+
+express :
+    port: 1337
+    async_init : true
+    routes :
+        # Classic view with no Controller
+        - type: view
+          src: /
+          dest: index
+          method: get
+        # Controller Related route 
+        - type: controller
+          src: /api/foo
+          dest: foo::bar
+          method: get
