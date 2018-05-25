@@ -1,13 +1,10 @@
 {
   "name": "@blacksmithstudio/blockbase",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
-    "dev": "export NODE_ENV=development && node --max_old_space_size=4096 start.js",
-    "start": "export NODE_ENV=development && pm2 start start.js --name=blockbase",
-    "serve:production": "export NODE_ENV=production && pm2 start start.js --name=blockbase",
-    "serve:sandbox": "export NODE_ENV=sandbox && pm2 start start.js --name=blockbase",
+    "start": "export NODE_ENV=default && node --max_old_space_size=4096 ./src/app.js",
     "test": "mocha"
   },
   "bin": {
@@ -15,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org:blacksmithstudio/blockbase.git"
+    "url": "git+ssh://git@github.com:blacksmithstudio/blockbase.git"
   },
   "author": "Alexandre Pereira <alex@blacksmith.studio>",
   "license": "MIT",

@@ -1,8 +1,15 @@
+
+![Blockbase](https://s3-eu-west-1.amazonaws.com/blockbase/assets/blockbase-logo.svg)
 # Blockbase
 Lightweight MVC Framework for Node.
 
+[![Travis Blockbase](https://travis-ci.org/blacksmithstudio/blockbase.svg?branch=master)](https://travis-ci.org/blacksmithstudio/blockbase)
+[![NPM Version](https://img.shields.io/npm/v/@blacksmithstudio/blockbase.svg)](https://www.npmjs.com/package/@blacksmithstudio/blockbase)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+
+
 ### Version
-1.0.0 beta
+1.0.2 beta
 
 ### Install
 You need first to have Node.JS on your machine. If not [please folllow the install instructions here](https://nodejs.org)
