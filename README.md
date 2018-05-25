@@ -1,5 +1,5 @@
 
-![PRs Welcome](https://s3-eu-west-1.amazonaws.com/blockbase/assets/blockbase-logo.svg)
+![Blockbase](https://s3-eu-west-1.amazonaws.com/blockbase/assets/blockbase-logo.svg)
 # Blockbase
 Lightweight MVC Framework for Node.
 
