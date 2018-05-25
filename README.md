@@ -1,5 +1,11 @@
+
+![PRs Welcome](https://s3-eu-west-1.amazonaws.com/blockbase/assets/blockbase-logo.svg)
 # Blockbase
 Lightweight MVC Framework for Node.
+
+![Travis Blockbase](https://travis-ci.org/blacksmithstudio/blockbase.svg?branch=master "Travis Blockbase")
+![NPM Version](https://img.shields.io/npm/v/@blacksmithstudio/blockbase.svg "NPM Blockbase")
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ### Version
 1.0.2 beta
