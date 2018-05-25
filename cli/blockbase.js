@@ -13,11 +13,15 @@ console.log(
 )
 
 program
+    .command('add <type> [name]')
+    .action(function (type, name) {
+        require(`./commands/add`)()[type](name)
+    })
+
+program
     .arguments('<command> [name]')
     .option('-n, --name <name>', 'Application Name & Directory be created')
     .action(function(command, name) {
-        console.log(`command : ${command}`)
-
         require(`./commands/${command}`)().init(name)
     })
     .parse(process.argv)

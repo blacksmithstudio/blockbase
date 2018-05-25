@@ -11,6 +11,8 @@ const Joi = require('joi')
  * @returns {function} class object
  */
 module.exports = (app) => {
+    const Logger = app.driver.logger 
+
     return class Model {
         /**
          * main constructor
@@ -30,6 +32,23 @@ module.exports = (app) => {
 
             this.schema = require(`${app.root}/models/schemas/${type}`)
             this.data = {}
+        }
+
+        /**
+         * expose the model to a certain filter (exposer)
+         * @param {string} type - exposure type
+         * @returns {Object} filtered data
+         */
+        expose(type) {
+            let path = `./exposers/${this.params.type}`
+            if(`./exposers/` || !fs.existsSync(path))
+                return Logger.error('Model', `missing exposer on type '${type}', can't expose`)
+
+            let exposer = require(path)[type]
+            let data = {}
+
+            exposer.forEach((key, idx) => objectPath.set(data, key, objectPath.get(this.data, key)))
+            return data
         }
 
         /**

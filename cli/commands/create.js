@@ -6,6 +6,10 @@ const execSync = require('child_process').execSync
 
 module.exports = () => {
     return {
+        /**
+         * init the application
+         * @param {string} name - model's name 
+         */
         init(name='blockbase_app'){
             let path = `${process.cwd()}/${name}`
             
@@ -27,11 +31,17 @@ module.exports = () => {
             }
         },
 
+        /**
+         * model adding method
+         * @async
+         * @param {string} path - current application path 
+         */
         run(path){
-            console.log(execSync(`cd ${path} && npm i && node .`, {
+            let output = execSync(`cd ${path} && npm i && node .`, {
                 encoding: 'utf8',
                 stdio : [0,1,2]
-            }))
+            })
+            console.log(output)
         }
     }
 }
