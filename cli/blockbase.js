@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander')
+const pjson = require('../package.json')
 
 console.log(
     '___.   .__                 __   ___.                         \n'+
@@ -19,9 +20,14 @@ program
     })
 
 program
-    .arguments('<command> [name]')
-    .option('-n, --name <name>', 'Application Name & Directory be created')
-    .action(function(command, name) {
-        require(`./commands/${command}`)().init(name)
+    .command('create <name>')
+    .action(function (name) {
+        require(`./commands/create`)().init(name)
+    })
+
+program
+    .version(pjson.version, '-v, --version')
+    .action(function(options, command) {
+        console.log(options)
     })
     .parse(process.argv)
