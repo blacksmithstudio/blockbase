@@ -11,7 +11,7 @@ const Joi = require('joi')
  * @returns {function} class object
  */
 module.exports = (app) => {
-    const Logger = app.driver.logger 
+    const Logger = app.drivers.logger 
 
     return class Model {
         /**
@@ -25,7 +25,7 @@ module.exports = (app) => {
             this.authenticated = authenticated || false
 
             if(!app.config.dbms || !app.drivers[app.config.dbms])
-                app.drivers.logger.warn('Models', `Missing or problem with DBMS with model '${type}'`)
+                Logger.warn('Models', `Missing or problem with DBMS with model '${type}'`)
 
             this.client = app.drivers[dbms || app.config.dbms]
             this.params = { type, index }

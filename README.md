@@ -9,7 +9,7 @@ Lightweight MVC Framework for Node.
 
 
 ### Version
-1.0.3 beta
+1.0.4 beta
 
 ### Install
 You need first to have Node.JS on your machine. If not [please folllow the install instructions here](https://nodejs.org)

@@ -1,5 +1,5 @@
 /**
- * Blockbase Shuffle Init File
+ * Blockbase Init File
  * @author Blacksmith <code@blacksmith.studio>
  */
 
