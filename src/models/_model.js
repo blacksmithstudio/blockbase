@@ -1,5 +1,7 @@
 const _ = require('underscore')
 const Joi = require('joi')
+const knex = require('knex')
+const knex_clients = { postgresql : 'pg', mysql : 'mysql' }
 
 /**
  * Blockbase Main Model (class)
@@ -20,18 +22,22 @@ module.exports = (app) => {
          * @param {Object} options - parameters to push in the models
          */
         constructor(options){
-            const { type, authenticated, index, dbms } = options
-
+            const { type, authenticated, index, dbms, table } = options
+            this.params = { type, index, table }
             this.authenticated = authenticated || false
+            this.schema = require(`${app.root}/models/schemas/${type}`)
+            this.data = {}
 
             if(!app.config.dbms || !app.drivers[app.config.dbms])
                 Logger.warn('Models', `Missing or problem with DBMS with model '${type}'`)
-
-            this.client = app.drivers[dbms || app.config.dbms]
-            this.params = { type, index }
-
-            this.schema = require(`${app.root}/models/schemas/${type}`)
-            this.data = {}
+            
+            if(dbms || app.config.dbms){
+                this.client = app.drivers[dbms || app.config.dbms]
+                this.queryBuilder = knex({
+                    client : knex_clients[dbms || app.config.dbms],
+                    connection: app.config[dbms || app.config.dbms]
+                })(table || `${type}s`)
+            }
         }
 
         /**
