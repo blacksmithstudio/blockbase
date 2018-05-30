@@ -28,14 +28,16 @@ module.exports = (app) => {
             this.schema = require(`${app.root}/models/schemas/${type}`)
             this.data = {}
 
-            if(!app.config.dbms || !app.drivers[app.config.dbms])
+            this.dbms = dbms || app.config.dbms
+
+            if(!this.dbms || !app.drivers[this.dbms])
                 Logger.warn('Models', `Missing or problem with DBMS with model '${type}'`)
             
-            if(dbms || app.config.dbms){
-                this.client = app.drivers[dbms || app.config.dbms]
+            if(this.dbms){
+                this.client = app.drivers[this.dbms]
                 this.queryBuilder = knex({
-                    client : knex_clients[dbms || app.config.dbms],
-                    connection: app.config[dbms || app.config.dbms]
+                    client : knex_clients[this.dbms],
+                    connection: app.config[this.dbms]
                 })(table || `${type}s`)
             }
         }
