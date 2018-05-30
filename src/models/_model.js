@@ -70,7 +70,8 @@ module.exports = (app) => {
                     return _.isFunction(value) || _.isNull(value) || key.charAt(0) === '_'
                 })
             } else {
-                return _.extendOwn(this.data, data)
+                this.data = Object.assign(this.data, data)
+                return this.data
             }
         }
 

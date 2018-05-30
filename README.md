@@ -54,13 +54,13 @@ blockbase({ root : __dirname }, async (app) => {
 })
 ```
 
-#### Namespace `app.*`
+#### Namespace
 If you log the `app` variable from the callback, you'll get the following architecture :
 * `app.config`: contains the config JSON from /config/{env}.yml (see [config](https://www.npmjs.com/package/config) package)
 * `app.root`: path where the app is launched
-* `app.drivers`: drivers namespace, by default is containing only `app.drivers.logger` handling the console logs. You can install more drivers (see more [Drivers Install](#drivers-install))
-* `app.controllers`: will be automatically populated by the files from /controllers/* (see more [Managing Controllers](#managing-controllers))
-* `app.models`: will be automatically populated by the files from /models/* (see more [Managing Models](#managing-models))
+* `app.drivers`: drivers namespace, by default is containing only `app.drivers.logger` handling the console logs. You can install more drivers (see more [Drivers Install](#drivers))
+* `app.controllers`: will be automatically populated by the files from /controllers/* (see more [Managing Controllers](#controllers))
+* `app.models`: will be automatically populated by the files from /models/* (see more [Managing Models](#models))
 
 #### Drivers
 
