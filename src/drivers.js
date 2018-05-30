@@ -1,4 +1,3 @@
-const _ = require('underscore')
 const fs = require('fs')
 const junk = require('junk')
 const path = require('path')
@@ -24,7 +23,7 @@ module.exports = (app) => {
         async build(path = `${app.root}/drivers`) {
             if(path.includes(app.root) && fs.existsSync(`${app.root}/../node_modules/@blacksmithstudio`)){
                 let modules = fs.readdirSync(`${app.root}/../node_modules/@blacksmithstudio`)
-                let drivers = _.filter(modules, (mod) => {
+                let drivers = drivers.filter(modules, (mod) => {
                     return mod.includes('blockbase-')
                 })
 

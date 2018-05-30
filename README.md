@@ -7,32 +7,39 @@ Lightweight MVC Framework for Node.
 [![NPM Version](https://img.shields.io/npm/v/@blacksmithstudio/blockbase.svg)](https://www.npmjs.com/package/@blacksmithstudio/blockbase)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-
 ### Version
 1.0.4 beta
+
+### Summary
+- [Install](#install)
+- [Namespace Architecture](#namespace)
+- [Drivers](#drivers)
+- [Controllers](#controllers)
+- [Models](#models)
 
 ### Install
 You need first to have Node.JS on your machine. If not [please folllow the install instructions here](https://nodejs.org)
 
 Then let's move on :
 
-1. Create first a project directory
+1. Install Blockbase
 ``` shell
-$ cd /workspace && mkdir myproject
+$ npm install -g @blacksmithstudio/blockbase
 ```
 
-2. Create the architecture (you can use [the sample app](https://bitbucket.org/blacksmithstudio/sample) as a model)
+2. Create a project using the CLI 
+``` shell
+$ blockbase create MySuperProject
 ```
-/config
+
+3. Discover the architecture 
+```
+/config (required)
 /drivers
 /controllers
+/middlewares
 /models
 app.js
-```
-
-3. Install Blockbase
-``` shell
-$ npm i --save @blacksmithstudio/blockbase
 ```
 
 4. Edit your `app.js`
@@ -41,7 +48,7 @@ In options, the only mandatory property is `root` handling the path of the curre
 ``` js
 const blockbase = require('@blacksmithstudio/blockbase')
 
-blockbase({ root : __dirname }, (app) => {
+blockbase({ root : __dirname }, async (app) => {
     app.drivers.logger.success('App', `${app.config.name} is alive !`)
     // let's code !
 })
@@ -55,19 +62,19 @@ If you log the `app` variable from the callback, you'll get the following archit
 * `app.controllers`: will be automatically populated by the files from /controllers/* (see more [Managing Controllers](#managing-controllers))
 * `app.models`: will be automatically populated by the files from /models/* (see more [Managing Models](#managing-models))
 
-#### Drivers Install
+#### Drivers
 
 ##### Automatic install for official drivers.
 You can easily install official drivers by using `npm i` in your project. This will automatically add the driver to the blockbase namespace `app.drivers.*`
 ``` shell
-$ npm i --save @blacksmithstudio/blockbase-postgresql
+$ npm i --save @blacksmithstudio/blockbase-express
 ```
-In the example above, the driver will be install under the `app.drivers.postgresql` namespace
+In the example above, the driver will be install under the `app.drivers.express` namespace
 
 ##### Manual Install for your custom drivers.
-You can create your own drivers by adding them to the /drivers/ folder.
+You can create your own drivers by adding them to the /drivers/ folder using the CLI.
 ```
-$ touch ./drivers/custom.js
+$ blockbase add driver custom
 ```
 
 Blockbase structure allows you to pass the entire `app.*` namespace to your drivers, controllers, etc...
@@ -94,7 +101,7 @@ module.exports = (app) => {
 Following that you'll be able to use anywere the driver by calling `app.drivers.custom.foo(arg1, arg2)` for example.
 !!! Please don't call any controller or model in the driver above the `return` statement as it is instanciated at the application initialization.
 
-#### Managing Controllers
+#### Controllers
 Controllers will follow the same rules, you want to create a controller ? Just add it under /controllers, but there are some differences.
 - Controllers could have an optional `init` method, triggered on the creation of the app.
 - Controllers can have sub namespaces (2 dimensions max) like `app.controllers.sub.foo.bar`
@@ -111,19 +118,34 @@ app.js
 ```
 Following the construction above, Blockbase will render `app.controllers.custom.*` and `app.controllers.foo.bar.*`
 
-#### Managing Models
+To create a controller
+```
+$ blockbase add controller foo
+```
+To create a sub.controller
+```
+$ blockbase add controller foo.bar
+```
+
+#### Models
 
 Models follow a slight different approach, using `class` and `extends` properties of ES6.
 
 ##### Building a custom model from scratch
+
 You can build a custom model with no inherited properties and submethods.
 Adding it directly to /models/ will add it to the `app.models.*` namespace
 
-Example : /models/mymodel.js
+To create a model with the CLI
+```
+$ blockbase add model user
+```
+
+Example : /models/user.js
 
 ```js
 module.exports = (app) => {
-    return class MyModel {
+    return class User {
         constructor(data){
             // init my model
         }
@@ -135,16 +157,19 @@ module.exports = (app) => {
 }
 ```
 However this model is limited, having only its declared subproperties.
+Blockbase has by default a serie of classic methods powered in the models (create, read, update, delete, etc.) useful in your API build-up. To activate these methods, use the inheritance below :
 
 ##### Building a custom model with Blockbase inheritance
 
-Example : /models/awesome.js
+Example : /models/user.js
 
 ```js
 module.exports = (app) => {
+    // we call the "super model" from the namespace
     const Model = app.models._model
-
-    return class Awesome extends Model {
+    
+    // we extend the super model in our user model so it will receive all the default methods.
+    return class User extends Model {
         constructor(data){
             super({ type : 'awesome', authenticated : false })
 
@@ -160,15 +185,33 @@ module.exports = (app) => {
 ```
 
 The main change is on the `Model` inheritance.
-Thanks to that you'll get access to multiple new features.
 
 ```js
     const Model = app.models._model
     [...]
     return class Awesome extends Model {
 ```
+Thanks to this extend, you'll get access to a lot of default methods in the model.
+```js
+   const User = app.models.user
+   let user = new User({ firstname : 'John', lastname : 'Doe' })
+   
+   console.log(user.body()) // will show you the data 
+   console.log(user.clean()) // will remove null/empty data from the object
+   etc...
+```
 
-@TODO - finish the model documentation
+###### Default methods in the model
+- `{model}.body()` allowing you to access the data (if your model has a`.data`object)
+- `{model}.clean()` remove all the null and empty values from your data
+- `{model}.validate()` returns the Joi validation of your model
+- `{model}.valid()` returns a boolean if your object data is Joi validated or not
+
+###### Default methods in the model (be careful : a DBMS driver is required, for example blockbase-postgresql)
+- `await {model}.create()` returns a new saved object in your database
+- `await {model}.read()` returns an object from your database (search by id)
+- `await {model}.update()` returns an updated object from your database
+- `await {model}.delete()` returns a boolean on deletion of your object (by id)
 
 #### Run tests
 Blockbase has some unit tests (with [Mocha](https://mochajs.org)) written run them often !
@@ -179,7 +222,7 @@ $ npm test
 
 License
 ----
-(Copyright) 2017 - Alexandre Pereira for Blacksmith S.A.S.
+(Licence [MIT](https://github.com/blacksmithstudio/blockbase/blob/master/LICENCE))
 
 
 **Free Software, Hell Yeah!**
