@@ -8,7 +8,7 @@ Lightweight MVC Framework for Node.
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ### Version
-1.0.4 beta
+1.0.5 beta
 
 ### Summary
 - [Install](#install)
@@ -223,7 +223,7 @@ $ npm test
 License
 ----
 (Licence [MIT](https://github.com/blacksmithstudio/blockbase/blob/master/LICENCE))
-
+Coded by [Blacksmith](https://www.blacksmith.studio)
 
 **Free Software, Hell Yeah!**
 
