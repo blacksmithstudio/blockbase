@@ -21,15 +21,15 @@ module.exports = (app) => {
          * @returns {Object} update drivers namespace
          */
         async build(path = `${app.root}/drivers`) {
-            if(path.includes(app.root) && fs.existsSync(`${app.root}/../node_modules/@blacksmithstudio`)){
-                let modules = fs.readdirSync(`${app.root}/../node_modules/@blacksmithstudio`)
-                let drivers = drivers.filter(modules, (mod) => {
+            if(path.includes(app.root) && fs.existsSync(`${app.root}/../node_modules`)){
+                let modules = fs.readdirSync(`${app.root}/../node_modules`)
+                let drivers = modules.filter((mod) => {
                     return mod.includes('blockbase-')
                 })
 
                 drivers.forEach((driver, idx) => {
                     if(!app.drivers[driver.replace('blockbase-', '')])
-                        app.drivers[driver.replace('blockbase-', '')] = require(`@blacksmithstudio/${driver}`)(app)
+                        app.drivers[driver.replace('blockbase-', '')] = require(driver)(app)
                 })
             }
 

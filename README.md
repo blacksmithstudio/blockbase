@@ -8,7 +8,7 @@ Lightweight MVC Framework for Node.
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ### Version
-1.0.5 beta
+1.0.6 beta
 
 ### Summary
 - [Install](#install)
@@ -24,7 +24,7 @@ Then let's move on :
 
 1. Install Blockbase
 ``` shell
-$ npm install -g @blacksmithstudio/blockbase
+$ npm install -g blockbase
 ```
 
 2. Create a project using the CLI 
@@ -46,7 +46,7 @@ app.js
 Blockbase is using a simple instance method : `blockbase(options, callback)`
 In options, the only mandatory property is `root` handling the path of the current project (see example below).
 ``` js
-const blockbase = require('@blacksmithstudio/blockbase')
+const blockbase = require('blockbase')
 
 blockbase({ root : __dirname }, async (app) => {
     app.drivers.logger.success('App', `${app.config.name} is alive !`)
@@ -67,7 +67,7 @@ If you log the `app` variable from the callback, you'll get the following archit
 ##### Automatic install for official drivers.
 You can easily install official drivers by using `npm i` in your project. This will automatically add the driver to the blockbase namespace `app.drivers.*`
 ``` shell
-$ npm i --save @blacksmithstudio/blockbase-express
+$ npm i --save blockbase-express
 ```
 In the example above, the driver will be install under the `app.drivers.express` namespace
 

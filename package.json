@@ -1,6 +1,6 @@
 {
   "name": "blockbase",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
@@ -25,5 +25,8 @@
     "junk": "^2.1.0",
     "knex": "^0.14.6",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }

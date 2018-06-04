@@ -13,12 +13,12 @@ https://nodejs.org/en/
 
 **Installing Blockbase**
 ```sh
-$ npm i -g @blacksmithstudio/blockbase
+$ npm i -g blockbase
 ```
 
 **Create your first application**
 ```sh
-$ blockbase create -n myApp
+$ blockbase create myApp
 ```
 
 ### Usage
