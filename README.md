@@ -33,11 +33,12 @@ $ blockbase create MySuperProject
 ```
 
 3. Discover the architecture 
+
+Blockbase is based on an hybrid MVC+Drivers architecture to build complete projects and scalable architectures.
 ```
-/config (required)
+/config (required, where you'll push your configuration)
 /drivers
 /controllers
-/middlewares
 /models
 app.js
 ```
@@ -64,8 +65,11 @@ If you log the `app` variable from the callback, you'll get the following archit
 
 #### Drivers
 
+Blockbase is build with a driver linked logic to build connectors to other tools or customer traversal methods across your app. 
+We offer a list of [official drivers here](https://github.com/blacksmithstudio/blockbase/blob/master/docs/DRIVERS.md) to install connectors such as [MySQL](https://github.com/blacksmithstudio/blockbase-mysql), [PostgreSQL](https://github.com/blacksmithstudio/blockbase-postgresql), ... 
+
 ##### Automatic install for official drivers.
-You can easily install official drivers by using `npm i` in your project. This will automatically add the driver to the blockbase namespace `app.drivers.*`
+You can easily install [official drivers](https://github.com/blacksmithstudio/blockbase/blob/master/docs/DRIVERS.md) by using `npm i` in your project. This will automatically add the driver to the blockbase namespace `app.drivers.*`
 ``` shell
 $ npm i --save blockbase-express
 ```
