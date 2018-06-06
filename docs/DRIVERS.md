@@ -28,7 +28,7 @@ Here is the list of the official drivers to enhance your dev with Blockbase :
 - [Twitter](https://github.com/blacksmithstudio/blockbase-twitter)
 
 ### Auth / Security
-- [Facebook](https://github.com/blacksmithstudio/blockbase-security)
+- [Security](https://github.com/blacksmithstudio/blockbase-security)
 
 
 And more to come !!!

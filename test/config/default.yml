@@ -1,0 +1,4 @@
+log: true
+name: blockbase-test
+
+dbms:
