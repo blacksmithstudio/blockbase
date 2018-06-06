@@ -4,7 +4,7 @@
 Lightweight MVC Framework for Node.
 
 [![Travis Blockbase](https://travis-ci.org/blacksmithstudio/blockbase.svg?branch=master)](https://travis-ci.org/blacksmithstudio/blockbase)
-[![NPM Version](https://img.shields.io/npm/v/@blacksmithstudio/blockbase.svg)](https://www.npmjs.com/package/@blacksmithstudio/blockbase)
+[![NPM Version](https://img.shields.io/npm/v/blockbase.svg)](https://www.npmjs.com/package/blockbase)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ### Version

@@ -1,5 +1,5 @@
 # Your Application
-Your application [using Blockbase](http://npmjs.com/package/@blacksmithstudio/blockbase)
+Your application [using Blockbase](http://npmjs.com/package/blockbase)
 
 ### Version
 1.0

@@ -17,8 +17,8 @@
     "author": "John Doe <john@doe.com>",
     "license": "WTFPL",
     "dependencies": {
-      "@blacksmithstudio/blockbase": "*",
-      "@blacksmithstudio/blockbase-express": "*",
+      "blockbase": "*",
+      "blockbase-express": "*",
       "pm2": "*"
     },
     "devDependencies": {
