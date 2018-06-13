@@ -1,12 +1,21 @@
 {
   "name": "blockbase",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
     "start": "export NODE_ENV=default && node --max_old_space_size=4096 ./src/app.js",
     "test": "mocha --exit"
   },
+  "keywords": [
+    "node",
+    "nodejs",
+    "framework",
+    "es6",
+    "async",
+    "await",
+    "mvc"
+  ],
   "bin": {
     "blockbase": "./cli/blockbase.js"
   },
