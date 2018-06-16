@@ -21,7 +21,11 @@ Here is the list of the official drivers to enhance your dev with Blockbase :
 ## Work in progress
 
 ### Databases
-- [MongoDB](https://github.com/blacksmithstudio/blockbase-mongodb)
+- MongoDB
+- GraphQL
+
+### Routing / Middlewares
+- Restify
 
 ### Social Networks
 - [Facebook](https://github.com/blacksmithstudio/blockbase-facebook)
