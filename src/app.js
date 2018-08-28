@@ -36,5 +36,9 @@ module.exports = async (options, callback) => {
     await app.controllers.build()
 
     app.drivers.logger.success('App', `${app.config.name} is alive !`)
-    callback(app)
+    
+    if(callback)
+        return callback(app)
+
+    return app
 }
