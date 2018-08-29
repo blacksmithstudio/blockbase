@@ -27,19 +27,19 @@ module.exports = (app) => {
                     return mod.includes('blockbase-')
                 })
 
-                drivers.forEach((driver, idx) => {
-                    if(!app.drivers[driver.replace('blockbase-', '')])
-                        app.drivers[driver.replace('blockbase-', '')] = require(driver)(app)
-                })
+                for(let i = 0; i < drivers.length; i++){
+                    if(!app.drivers[drivers[i].replace('blockbase-', '')])
+                        app.drivers[drivers[i].replace('blockbase-', '')] = require(drivers[i])(app)                    
+                }
             }
 
             if(fs.existsSync(path)){
                 let files = fs.readdirSync(path).filter(junk.not)
 
-                files.forEach((f, i) => {
-                    if(f.includes('.js'))
-                        app.drivers[f.replace('.js', '')] = require(`${path}/${f.replace('.js', '')}`)(app)
-                })
+                for(let i = 0; i < files.length; i++){
+                    if(files[i].includes('.js'))
+                        app.drivers[files[i].replace('.js', '')] = require(`${path}/${files[i].replace('.js', '')}`)(app)
+                }
             }
 
             return app.drivers
