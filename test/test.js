@@ -15,7 +15,7 @@ process.on('unhandledRejection', (reason, p) => {
     // application specific logging, throwing an error, or other logic here
 })
 
-require('../src/app')({root: __dirname}, (app) => {
+require('../src/app')({ root: __dirname }, (app) => {
     describe('App Architecture', () => {
         describe(`app.* tests`, () => {
             it('app.* exists', () => {
@@ -70,7 +70,11 @@ require('../src/app')({root: __dirname}, (app) => {
             })
 
             it('models should have base methods', function () {
+                should.exist(app.models._model.prototype.clean)
+                should.exist(app.models._model.prototype.body)
                 should.exist(app.models._model.prototype.save)
+                should.exist(app.models._model.prototype.valid)
+                should.exist(app.models._model.prototype.validate)
                 should.equal(typeof app.models._model.prototype.save, 'function')
                 should.exist(app.models._model.prototype.beforeSave)
                 should.equal(typeof app.models._model.prototype.beforeSave, 'function')
@@ -89,13 +93,37 @@ require('../src/app')({root: __dirname}, (app) => {
             })
 
             describe('app.models.user methods', function () {
-                it('should expose model correctly', function () {
-                    let data = {firstname: 'toto', lastname: 'tata', phone: '123456789', email: 'qsdqsd@qsdqd.com'}
+                let data = {
+                    firstname: 'toto',
+                    lastname: 'tata',
+                    phone: '123456789',
+                    email: 'qsdqsd@qsdqd.com',
+                    other: null
+                }
+
+                it('should clean the data correctly', function () {
                     let user = new app.models.user(data)
-                    let publicExposer = {firstname: 'toto', lastname: 'tata'}
+                    user.clean()
+                    should.not.exist(user.data.other)
+                })
+
+                it('should body the data correctly', function () {
+                    let user = new app.models.user(data)
+                    let body = user.body()
+                    should.not.exist(body.other)
+                    should.exist(body.phone)
+                    should.exist(body.firstname)
+                    should.exist(body.lastname)
+                })
+
+                it('should expose model correctly', function () {
+                    let user = new app.models.user(data)
+                    let publicExposer = { firstname: 'toto', lastname: 'tata' }
                     should.deepEqual(publicExposer, user.expose('public'))
 
-                    let loggedExposer = {firstname: 'toto', lastname: 'tata', phone: '123456789', email: 'qsdqsd@qsdqd.com'}
+                    let loggedExposer = {
+                        firstname: 'toto', lastname: 'tata', phone: '123456789', email: 'qsdqsd@qsdqd.com'
+                    }
                     should.deepEqual(loggedExposer, user.expose('logged'))
                 })
             })

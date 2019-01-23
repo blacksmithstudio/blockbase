@@ -36,10 +36,12 @@ module.exports = (app) => {
 
             this.dbms = dbms || app.config.dbms
 
-            if (!this.dbms || !app.drivers[this.dbms])
-                Logger.warn('Models', `Missing or problem with DBMS with model '${type}'`)
-
             if (this.dbms) {
+                if (!app.drivers[this.dbms]) {
+                    Logger.warn('Models', `Missing DBMS with model '${type}'`)
+                    return
+                }
+
                 this.client = app.drivers[this.dbms]
                 this.queryBuilder = knex({
                     client: knex_clients[this.dbms],
@@ -77,7 +79,7 @@ module.exports = (app) => {
         body(data) {
             if (!data) {
                 return Object
-                    .entries(data)
+                    .entries(this.data)
                     .reduce((sum, [key, value]) =>
                             (key.charAt(0) === '_' || typeof value === 'function' || value === null)
                                 ? sum
