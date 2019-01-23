@@ -32,8 +32,7 @@
     "joi": "^13.4.0",
     "js-yaml": "^3.8.4",
     "junk": "^2.1.0",
-    "knex": "^0.14.6",
-    "underscore": "^1.8.3"
+    "knex": "^0.14.6"
   },
   "devDependencies": {
     "mocha": "^5.2.0",

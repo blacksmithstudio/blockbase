@@ -1,7 +1,6 @@
-const _ = require('underscore')
 const Joi = require('joi')
 const knex = require('knex')
-const knex_clients = {postgresql: 'pg', mysql: 'mysql'}
+const knex_clients = { postgresql: 'pg', mysql: 'mysql', mssql: 'mssql' }
 const fs = require('fs')
 const path = require('path')
 
@@ -19,13 +18,18 @@ module.exports = (app) => {
 
     return class Model {
         /**
-         * main constructor
+         * Main constructor
          * @constructor
          * @param {Object} options - parameters to push in the models
+         * @param {String=} options.type - model type name. ex: 'user'
+         * @param {Boolean=} options.authenticated - wherever model is authenticated
+         * @param {Boolean=} options.index -
+         * @param {String=} options.dbms - DBMS to use. Set to null if none is used
+         * @param {String=} options.table - DBMS table to use
          */
         constructor(options) {
-            const {type, authenticated, index, dbms, table} = options
-            this.params = {type, index, table}
+            const { type, authenticated, index, dbms, table } = options
+            this.params = { type, index, table }
             this.authenticated = authenticated || false
             this.schema = require(`${app.root}/models/schemas/${type}`)
             this.data = {}
@@ -45,7 +49,7 @@ module.exports = (app) => {
         }
 
         /**
-         * expose the model to a certain filter (exposer)
+         * Expose the model to a certain filter (exposer)
          * @param {string} type - exposure type
          * @returns {Object} filtered data
          */
@@ -58,7 +62,7 @@ module.exports = (app) => {
             if (!exposer)
                 return Logger.error('Model', `missing exposer on model type '${type}', can't expose`)
 
-            if(!exposer[type])
+            if (!exposer[type])
                 return Logger.error('Model', `missing exposer on ${this.params.type} model : '${type}', can't expose`)
             let data = {}
             exposer[type].map(k => data[k] = this.data[k])
@@ -66,15 +70,22 @@ module.exports = (app) => {
         }
 
         /**
-         * body getter - omit methods and private variables
-         * @param {Object} data - optional data to push in the body of model
+         * Body getter - omit methods and private variables
+         * @param {Object=} data - optional data to push in the body of model
          * @returns {Object} body data
          */
         body(data) {
             if (!data) {
-                return _.omit(this.data, (value, key, object) => {
-                    return _.isFunction(value) || _.isNull(value) || key.charAt(0) === '_'
-                })
+                return Object
+                    .entries(data)
+                    .reduce((sum, [key, value]) =>
+                            (key.charAt(0) === '_' || typeof value === 'function' || value === null)
+                                ? sum
+                                : { ...sum, [key]: value }
+                        , {})
+                // return _.omit(this.data, (value, key, object) => {
+                //     return _.isFunction(value) || _.isNull(value) || key.charAt(0) === '_'
+                // })
             } else {
                 this.data = Object.assign(this.data, data)
                 return this.data
@@ -82,38 +93,45 @@ module.exports = (app) => {
         }
 
         /**
-         * clean the null values from the current object
+         * Clean the null values from the current object
          * @returns {Object} body data cleaned
          */
         clean() {
-            this.data = _.omit(this.data, (value, key, object) => {
-                return _.isNull(value) || value === ''
-            })
+
+            this.data = Object
+                .entries(this.data)
+                .reduce((sum, [key, value]) => (value === '' || value === null)
+                    ? sum
+                    : { ...sum, [key]: value }
+                    , {})
+            /*this.data = _.omit(this.data, (value, key, object) => {
+             return _.isNull(value) || value === ''
+             })*/
         }
 
         /**
-         * is the model data valid
+         * Is the model data valid
          * @returns {boolean} body is valid
          */
         valid() {
-            return this.validate().error === null ? true : false
+            return this.validate().error === null
         }
 
         /**
-         * validate the data
+         * Validate the data
          * @returns {Object} validation details (from Joi)
          */
         validate() {
             const validation = Joi.validate(this.body(), this.schema)
 
             if (!validation.error)
-                _.extendOwn(this.data, validation.value)
+                this.data = { ...this.data, ...validation.value }
 
             return validation
         }
 
         /**
-         * read info from DB
+         * Read info from DB
          */
         async read() {
             try {
@@ -124,10 +142,20 @@ module.exports = (app) => {
         }
 
         /**
-         * update info in DB
+         * Triggered before an update
+         * @return {Promise<void>}
+         */
+        async beforeUpdate() {
+            //Overide this function to have your code executed before the update method is called
+        }
+
+        /**
+         * Update info in DB
+         * @return {Promise<{Model}>}
          */
         async update() {
             try {
+                await this.beforeUpdate()
                 return await this.client.update(this)
             } catch (e) {
                 throw e
@@ -135,11 +163,20 @@ module.exports = (app) => {
         }
 
         /**
-         * save info in DB (update or create)
-         * @param {function} cb - callback returning the item saved
+         * Triggered before a save
+         * @return {Promise<void>}
+         */
+        async beforeSave() {
+            //Overide this function to have your code executed before the save method is called
+        }
+
+        /**
+         * Save model info in DB (update or create depending on DBMS)
+         * @return {Promise<{Model}>}
          */
         async save() {
             try {
+                await this.beforeSave()
                 return await this.client.save(this)
             } catch (e) {
                 throw e
@@ -147,11 +184,20 @@ module.exports = (app) => {
         }
 
         /**
-         * delete from DB
-         * @param {function} cb - callback returning bool if deleted
+         * Triggered before a delete
+         * @return {Promise<void>}
+         */
+        async beforeDelete() {
+            //Overide this function to have your code executed before the delete method is called
+        }
+
+        /**
+         * Delete from DB - returns a boolean if deleted
+         * @return {Promise<{Boolean}>}
          */
         async delete() {
             try {
+                await this.beforeDelete()
                 return await this.client.delete(this)
             } catch (e) {
                 throw e

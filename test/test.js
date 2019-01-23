@@ -72,6 +72,12 @@ require('../src/app')({root: __dirname}, (app) => {
             it('models should have base methods', function () {
                 should.exist(app.models._model.prototype.save)
                 should.equal(typeof app.models._model.prototype.save, 'function')
+                should.exist(app.models._model.prototype.beforeSave)
+                should.equal(typeof app.models._model.prototype.beforeSave, 'function')
+                should.exist(app.models._model.prototype.beforeUpdate)
+                should.equal(typeof app.models._model.prototype.beforeUpdate, 'function')
+                should.exist(app.models._model.prototype.beforeDelete)
+                should.equal(typeof app.models._model.prototype.beforeDelete, 'function')
                 should.exist(app.models._model.prototype.delete)
                 should.equal(typeof app.models._model.prototype.delete, 'function')
                 should.exist(app.models._model.prototype.read)
