@@ -1,6 +1,6 @@
 {
   "name": "blockbase",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
