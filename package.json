@@ -1,6 +1,6 @@
 {
   "name": "blockbase",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "blockbase MVC node framework project",
   "main": "src/app.js",
   "scripts": {
@@ -8,13 +8,12 @@
     "test": "mocha --exit"
   },
   "keywords": [
-    "node",
-    "nodejs",
+    "mvc",
+    "blockbase",
     "framework",
     "es6",
     "async",
-    "await",
-    "mvc"
+    "await"
   ],
   "bin": {
     "blockbase": "./cli/blockbase.js"
