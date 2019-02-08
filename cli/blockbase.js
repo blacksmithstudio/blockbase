@@ -4,19 +4,22 @@ const program = require('commander')
 const pjson = require('../package.json')
 
 console.log(
-    '___.   .__                 __   ___.                         \n'+
-    '\\_ |__ |  |   ____   ____ |  | _\\_ |__ _____    ______ ____  \n'+
-    ' | __ \\|  |  /  _ \\_/ ___\\|  |/ /| __ \\\\__  \\  /  ___// __ \\ \n'+
-    ' | \\_\\ \\  |_(  <_> )  \\___|    < | \\_\\ \\/ __ \\_\\___ \\\\  ___/ \n'+
-    ' |___  /____/\\____/ \\___  >__|_ \\|___  (____  /____  >\\___  >\n'+
-    '     \\/                 \\/     \\/    \\/     \\/     \\/     \\/ \n'+
+    '___.   .__                 __   ___.                         \n' +
+    '\\_ |__ |  |   ____   ____ |  | _\\_ |__ _____    ______ ____  \n' +
+    ' | __ \\|  |  /  _ \\_/ ___\\|  |/ /| __ \\\\__  \\  /  ___// __ \\ \n' +
+    ' | \\_\\ \\  |_(  <_> )  \\___|    < | \\_\\ \\/ __ \\_\\___ \\\\  ___/ \n' +
+    ' |___  /____/\\____/ \\___  >__|_ \\|___  (____  /____  >\\___  >\n' +
+    '     \\/                 \\/     \\/    \\/     \\/     \\/     \\/ \n' +
     ' Super light Framework by Bl4ck$m1th\n'
 )
 
 program
     .command('add <type> [name]')
     .action(function (type, name) {
-        require(`./commands/add`)()[type](name)
+        let add = require(`./commands/add`)()
+        if (!add[type])
+            return console.error(`Invalid type entered '${type}'`)
+        add[type](name)
     })
 
 program
@@ -27,7 +30,7 @@ program
 
 program
     .version(pjson.version, '-v, --version')
-    .action(function(options, command) {
+    .action(function (options, command) {
         console.log(options)
     })
     .parse(process.argv)

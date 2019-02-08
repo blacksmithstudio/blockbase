@@ -26,8 +26,7 @@ module.exports = () => {
         
         return `${path}/${name}.js`
     }
-
-
+    
     return {
         /**
          * model adding method

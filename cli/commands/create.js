@@ -12,7 +12,7 @@ module.exports = () => {
          */
         init(name='blockbase_app'){
             let path = `${process.cwd()}/${name}`
-            
+
             if(fs.existsSync(path)) 
                 return console.log(`[ Error ] - Blockbase can't create, the directory '${name}' already exists. Stopping...`)
             
@@ -20,8 +20,8 @@ module.exports = () => {
                 fse.copySync(`${__dirname}/../templates/app`, path)
                 fs.renameSync(`${path}/gitignore`, `${path}/.gitignore`)
                 
-                let package = fs.readFileSync(`${path}/package.json`, 'utf8')
-                fs.writeFileSync(`${path}/package.json`, package.replace(/{{ name }}/g, name), 'utf8')
+                let pck = fs.readFileSync(`${path}/package.json`, 'utf8')
+                fs.writeFileSync(`${path}/package.json`, pck.replace(/{{ name }}/g, name), 'utf8')
 
                 console.log(`[ Success ] - Application Boilerplate ready !`)
                 console.log(`[ Info ] - Install npm dependencies & launching ...`)

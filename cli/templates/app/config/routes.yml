@@ -1,0 +1,10 @@
+# Classic view with no Controller
+- type: view
+  src: /
+  dest: index
+  method: get
+# Controller Related route
+- type: controller
+  src: /api/foo
+  dest: foo::bar
+  method: get

@@ -1,7 +1,7 @@
 /**
  * Demo Controller
  * @namespace app.controllers.foo
- * @author Blacksmith <code@blacksmith.studio>
+ * @author Blacksmith Studio <code@blacksmith.studio>
  * @param {Object} app - app namespace to update
  *
  * @returns {Object} controller
