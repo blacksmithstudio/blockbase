@@ -15,11 +15,10 @@ module.exports = (app, path = `${app.root}/controllers/`) => {
      * index the controllers
      * @private
      * @param {string} file - file to index
-     * @param {number} index - position of the file in its parent folder
      *
      * @returns {Object} update controllers namespace
      */
-    function index(file, index) {
+    function index(file) {
         if(!file.includes('.js') && !!fs.readdirSync(path + file).length){
             let files = fs.readdirSync(path + file)
             if((typeof files ==='undefined' || files.length <= 0) && app.controllers[file].init)
@@ -27,7 +26,8 @@ module.exports = (app, path = `${app.root}/controllers/`) => {
 
             if(!app.controllers[file]) app.controllers[file] = {}
 
-            files.forEach((f, i) => {
+            for(let i = 0; i < files.length; i++){
+                let f = files[i]
                 const sub = f.replace('.js', '')
                 app.controllers[file][sub] = require(`${path}${file}/${sub}`)(app)
 
@@ -35,7 +35,7 @@ module.exports = (app, path = `${app.root}/controllers/`) => {
                     app.drivers.logger.log('Controllers', `Initializing >> app.controllers.${file}.${sub}.*`)
                     app.controllers[file][sub].init()
                 }
-            })
+            }
         } else {
             file = file.replace('.js', '')
             app.controllers[file] = require(path + file)(app)
@@ -55,10 +55,12 @@ module.exports = (app, path = `${app.root}/controllers/`) => {
          *
          * @returns {Object} update controllers namespace
          */
-        async build() {
+        build() {
             if(fs.existsSync(path)){
                 let files = fs.readdirSync(path).filter(junk.not)
-                files.forEach(index)
+                for(let i = 0; i < files.length; i++){
+                    index(files[i])
+                }
             }
 
             return app.controllers

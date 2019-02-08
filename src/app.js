@@ -7,7 +7,7 @@ const config = require('config')
  * @param {Object} options - setup options { root : __dirname }
  * @param {function} callback - main callback transporting the app variable
  */
-module.exports = async (options, callback) => {
+module.exports = (options, callback) => {
     let app = {
         root : options.root || __dirname,
         config
@@ -28,12 +28,12 @@ module.exports = async (options, callback) => {
     app.models = require('./models')(app)
     app.controllers = require('./controllers')(app)
 
-    await app.drivers.build(`${__dirname}/drivers`)
-    await app.models.build(`${__dirname}/models`)
+    app.drivers.build(`${__dirname}/drivers`)
+    app.models.build(`${__dirname}/models`)
 
-    await app.drivers.build()
-    await app.models.build()
-    await app.controllers.build()
+    app.drivers.build()
+    app.models.build()
+    app.controllers.build()
 
     app.drivers.logger.success('App', `${app.config.name} is alive !`)
     

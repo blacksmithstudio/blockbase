@@ -22,10 +22,10 @@ module.exports = (app) => {
             if(fs.existsSync(path)){
                 let files = fs.readdirSync(path)
 
-                files.forEach((f, i) => {
-                    if(f.includes('.js'))
-                        app.models[f.replace('.js', '')] = require(`${path}/${f.replace('.js', '')}`)(app)
-                })
+                for(let i=0; i<files.length; i++){
+                    if(files[i].includes('.js'))
+                        app.models[files[i].replace('.js', '')] = require(`${path}/${files[i].replace('.js', '')}`)(app)
+                }
             }
 
             return app.models
