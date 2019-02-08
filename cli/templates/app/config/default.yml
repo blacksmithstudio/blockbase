@@ -5,4 +5,5 @@ express :
     port: 1337
     async_init : true
     middlewares:
+      - dest: response
       - dest: cors
