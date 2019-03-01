@@ -1,6 +1,6 @@
 module.exports = app => {
 
-    return function(req, res, next) {
+    return function (req, res, next) {
         let oneof = false
 
         if (req.headers.origin) {
@@ -25,9 +25,9 @@ module.exports = app => {
             res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365)
         }
 
+        res.header('Access-Control-Allow-Credentials', 'true')
         // intercept OPTIONS method
         if (oneof && req.method == 'OPTIONS') {
-            res.header('Access-Control-Allow-Credentials', 'true')
             res.status(200).send()
         } else {
             next()
