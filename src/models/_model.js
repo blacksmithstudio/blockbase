@@ -45,7 +45,8 @@ module.exports = (app) => {
                 this.client = app.drivers[this.dbms]
                 this.queryBuilder = knex({
                     client: knex_clients[this.dbms],
-                    connection: app.config[this.dbms]
+                    connection: app.config[this.dbms],
+                    pool: { min: 0, max: 7 }
                 })(table || `${type}s`)
             }
         }
