@@ -1,4 +1,10 @@
 log: true
 name: blockbase-test
 
-dbms:
+dbms: postgresql
+postgresql:
+  host: 127.0.0.1
+  password: TRAVIS
+  user: travis
+  port: 5432
+  database: test

@@ -126,6 +126,32 @@ require('../src/app')({ root: __dirname }, (app) => {
                     }
                     should.deepEqual(loggedExposer, user.expose('logged'))
                 })
+                let firstname = 'toto2'
+
+                it(`KNEX should read many users`, async function () {
+                    this.timeout(100000)
+                    should.exist(app.drivers.postgresql)
+                    const User = app.models.user
+                    let UserQB = new User().queryBuilder
+
+                    for (let i = 0; i < 1000; i++) {
+
+                        try {
+                            let [existing] = await new app.models.user().queryBuilder.where('id', 75)
+                            if (existing)
+                                existing = new User(existing)
+
+                            should.exist(existing)
+                            should.exist(existing.data)
+                            should.exist(existing.data.id)
+                            should.exist(existing.data.firstname)
+                            should.equal(existing.data.firstname, firstname)
+                        } catch (e) {
+                            console.error('error', e)
+                            should.not.exist(e)
+                        }
+                    }
+                })
             })
         })
     })
