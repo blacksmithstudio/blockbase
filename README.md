@@ -8,7 +8,7 @@ Lightweight MVC Framework for Node.
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ### Version
-v1.0.19
+v1.0.20
 
 ### Summary
 - [Install](#install)
