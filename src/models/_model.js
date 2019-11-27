@@ -43,14 +43,16 @@ module.exports = (app) => {
                 }
 
                 this.client = app.drivers[this.dbms]
-                this.queryBuilder = knex({
-                    client: knex_clients[this.dbms],
-                    connection: app.config[this.dbms]
-                })(table || `${type}s`)
-                this.queryBuilder
-                    .on('query-response', async function (response, query, builder) {
-                        builder.client.pool.destroy()
-                    })
+                if(knex_clients[this.dbms]){
+                    this.queryBuilder = knex({
+                        client: knex_clients[this.dbms],
+                        connection: app.config[this.dbms]
+                    })(table || `${type}s`)
+                    this.queryBuilder
+                        .on('query-response', async function (response, query, builder) {
+                            builder.client.pool.destroy()
+                        })
+                    }
             }
         }
 
