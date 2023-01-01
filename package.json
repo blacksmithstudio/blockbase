@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.15.1",
-    "config": "^1.26.1",
+    "config": "^3.3.8",
     "fs-extra": "^6.0.1",
     "joi": "^13.4.0",
     "js-yaml": "^3.13.1",
